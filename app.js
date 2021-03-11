@@ -1,11 +1,9 @@
 const colors = require("colors");
 const config = require("config");
-const main = require("./pages/main");
 const prompt = require("prompt-sync")();
+const emitter = require("./emitter")
 
 console.clear();
 console.log(config.get("hello").bgCyan.black);
-process.stdin.setEncoding('utf-8')
-
 prompt();
-main();
+emitter.emit("main");
