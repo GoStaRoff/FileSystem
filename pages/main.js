@@ -8,8 +8,8 @@ const main = () => {
 
   console.clear();
   console.log(config.get("menu"));
-  let choise = prompt(process.cwd() + " > ");
-  switch (choise) {
+  let choice = prompt(process.cwd() + " > ");
+  switch (choice) {
     case "1":
     case "list":
       emitter.emit("list");
@@ -47,10 +47,10 @@ const main = () => {
       emitter.emit("exit");
       break;
     default:
-      console.log("Невідома команда".bgRed.black);
+      console.log("Невідома команда".red);
       break;
   }
-  prompt("Press enter to continue".red);
+  prompt("Press enter to continue".green.bgWhite);
   main();
 };
 module.exports = main;

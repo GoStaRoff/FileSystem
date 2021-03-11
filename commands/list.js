@@ -1,17 +1,13 @@
 const list = () => {
-  const path = require("path");
   const colors = require("colors");
   const fs = require("fs");
-  
+  const isDirectory = require("../methods/isDirectory")
   let files = fs.readdirSync(process.cwd());
-  console.log(files.bgCyan);
-  for (let i = 0; i < files.length; i++) {
-    if (fs.statSync(path.join(process.cwd(), files[i])).isDirectory()) {
-      console.log(files[i].blue);
-    } else {
-      console.log(files[i].green);
-    }
-  }
+  files.sort(function (a, b) {
+    return isDirectory(b) - isDirectory(a);
+  });
+  files.forEach((file) =>
+    isDirectory(file) ? console.log(file.blue) : console.log(file.green)
+  );
 };
-
 module.exports = list;
