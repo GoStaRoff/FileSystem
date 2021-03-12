@@ -3,6 +3,7 @@ const transition = () => {
   const prompt = require("prompt-sync")();
   const config = require("config");
   const fs = require("fs");
+  const choosing = require("../methods/choosing")
 
   console.clear();
   console.log(config.get("menu"));
@@ -10,33 +11,15 @@ const transition = () => {
     "Оберіть індекс/назву папки або введіть 0 для повернення у попередню. (Enter для повернення у головне меню)"
       .green.bgBlack
   );
-
+  console.log(`0 --- ${"Попередній каталог".red}`)
   let folders = fs.readdirSync(process.cwd());
-  folders = folders.filter((file) => isDirectory(file) === true);
+  folders = folders.filter((folder) => isDirectory(folder) === true);
   if (folders.length === 0) console.log("Папка пуста".bgGreen.black);
   else
-    folders.forEach((file, index) =>
-      console.log(`${index + 1} --- ${file.blue}`)
+    folders.forEach((folder, index) =>
+      console.log(`${index + 1} --- ${folder.blue}`)
     );
-  let choice = prompt(process.cwd() + " > ");
-  if (choice === "") return;
-  let index = parseInt(choice);
-  if (isNaN(index)) {
-    if (!folders.includes(choice)) console.log("Папку не знайдено".bgRed.black);
-    else {
-      process.chdir(choice);
-    }
-  } else if (index === 0) {
-    process.chdir("../");
-  } else {
-    folder = folders[index - 1];
-    if (!folder) {
-      console.log("Папку не знайдено".bgRed.black);
-      prompt();
-    } else {
-      process.chdir(folder);
-    }
-  }
+  if (choosing(folders, process.chdir)) return;
   transition();
 };
 module.exports = transition;

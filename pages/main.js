@@ -50,7 +50,6 @@ const main = () => {
       console.log("Невідома команда".red);
       break;
   }
-  prompt("Press enter to continue".green.bgWhite);
   main();
 };
 module.exports = main;

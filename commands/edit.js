@@ -1,2 +1,2 @@
-const info = () => {};
-module.exports = info;
+const edit = () => {};
+module.exports = edit;
